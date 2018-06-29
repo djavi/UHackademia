@@ -34,7 +34,10 @@ def login_view(request):
             if user.username == username:
                 if user.password == password:
                     request.session['user'] = user.id
-                    return redirect("home")
+                    if user.userType == 0:
+                        return redirect('staff')
+                    else:
+                        return redirect("home")
             else:
                 context['log_error'] = "Cannot find an account with that combination"
 
@@ -107,6 +110,11 @@ def logout_view(request):
     return HttpResponseRedirect('/')
 
 def staff_view(request):
+    try:
+        loggeduser = UserDetail.objects.get(id=request.session['user'])
+    except(KeyError, UserDetail.DoesNotExist):
+        loggeduser = 0
+    
     all_users = UserDetail.objects.all()
     title = "Staff page"
     success = ""
@@ -124,9 +132,9 @@ def staff_view(request):
                 user.brickWeight = user.brickWeight + int(weight)
                 user.save()
 
-                return render(request,'admin.html',{'title':title,'success':"Eco brick successfully added"})
+                return render(request,'admin.html',{'title':title,'success':"Eco brick successfully added",'loggeduser':loggeduser})
 
-    return render(request,'admin.html',{'title':title,'success':success})
+    return render(request,'admin.html',{'title':title,'success':success,'loggeduser':loggeduser})
 
 def user_profile(request, userid):
     try:
@@ -158,3 +166,11 @@ def register_view(request):
         return redirect('login')
 
     return render(request, 'register.html', context)
+
+def about(request):
+    try:
+        loggeduser = UserDetail.objects.get(id=request.session['user'])
+    except(KeyError, UserDetail.DoesNotExist):
+        loggeduser = 0
+
+    return render(request,'about.html',{'loggeduser':loggeduser})

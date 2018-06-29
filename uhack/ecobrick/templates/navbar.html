@@ -43,9 +43,9 @@
         <ul>
             <!-- <li><img class='resize' src="/static/logo.png"></li> -->
             <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="#">About EcoBricks</a></li>
+            <li><a href="/about">About EcoBricks</a></li>
             <li><a href="{% url 'partners' %}">Partners</a></li>
-            <li><a href="#">Contact Us</a></li>
+            <!-- <li><a href="#">Contact Us</a></li> -->
             {% if loggeduser == 0 %}
             <li style="float:right"><a href="/login/">Login</a></li>
             <li style="float:right"><a href="/register/">Register</a></li>
