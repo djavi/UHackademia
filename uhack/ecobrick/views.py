@@ -15,6 +15,7 @@ import datetime
 def login_view(request):
     title = "Login"
     form = login(request.POST or None)
+    context = {}
 
     if form.is_valid():
         username = form.cleaned_data.get("username")
@@ -24,7 +25,11 @@ def login_view(request):
 
         return redirect(reverse('client-panel', kwargs={'pk':request.user.pk}))
 
-    return render(request, "login.html",{"form":form, "title": title})
+    if User.DoesNotExist:
+        context['log_error'] = "Cannot find an account with that combination"
+
+
+    return render(request, "login.html",{"form":form, "title": title}, context)
 
 #HOME
 class HomeView(generic.View):
