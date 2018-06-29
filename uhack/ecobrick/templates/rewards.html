@@ -1,0 +1,8 @@
+{% extends 'navbar.html' %}
+{% block content %}
+    {% for reward in rewards %}
+        <div class = "reward">
+            {{reward.rewardName}}
+        </div>
+    {% endfor %}
+{% endblock %}

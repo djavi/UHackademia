@@ -1,5 +1,5 @@
-{%extends 'navbar.html'%}
-{%block content%}
+{% extends 'navbar.html' %}
+{% block content %}
 <head>
     <title>{{title}}</title>
 </head>
@@ -8,9 +8,11 @@
     <h1>Staff Page</h1>
 
     <form method="POST">
+        {%csrf_token%}
         User id: <input type="text" name="userId">
         Number of EcoBrick: <input type="number" name="numEcobrick">
+        Total weight of EcoBrick: <input type="number" name="weightEco">
         <input type="submit">
     </form>
 </body>
-{%endblock%}
+{% endblock %}
