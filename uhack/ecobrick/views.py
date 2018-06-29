@@ -10,7 +10,7 @@ from .models import *
 from .forms import *
 from django.contrib.sessions.models import Session
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate,logout
 
 import datetime
 # import timezone
@@ -21,16 +21,15 @@ def login_view(request):
     context = {"form":form, "title": title}
 
     if request.method == "POST":
-        if form.is_valid():
-            username = form.cleaned_data.get("username")
-            password = form.cleaned_data.get("password")
-            user = authenticate(username=username, password=password)
-            login(request,user)
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        user = authenticate(request,username=username, password=password)
 
-            if request.user.is_authenticated: 
-                return redirect("home.html")
-            else:
-                context['log_error'] = "Cannot find an account with that combination"
+        if user is not None:
+            login(request,user)
+            return redirect("home")
+        else:
+            context['log_error'] = "Cannot find an account with that combination"
 
 
     return render(request, "login.html", context)
@@ -38,18 +37,9 @@ def login_view(request):
 #HOME
 class HomeView(generic.View):
     template_name = 'home.html'
-
-    if request.user.is_authenticated():
-        loggeduser = User.objects.get(request.user)
-    else:
-        loggeduser = 0
-
-    context {
-        'loggeduser': loggeduser 
-    }
-
     #display blank form
     def get(self, request):
+        context = {}
         return render(request, self.template_name, context)
 
 class RewardsView(generic.View):
@@ -118,16 +108,14 @@ def staff_view(request):
 
     return render(request,'admin.html',{'title':title,'success':success})
 
-def user_profile(request, userid){
+def user_profile(request, userid):
     if request.user.is_authenticated():
         loggeduser = User.objects.get(request.user)
     else:
         loggeduser = 0
 
-    context {
+    context = {
         'loggeduser': loggeduser 
     }
 
     return render(request,'userprofile.html',context)
-
-}
