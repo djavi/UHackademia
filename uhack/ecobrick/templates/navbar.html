@@ -1,14 +1,12 @@
 {% load static %}
 <html>
     <head>
-        <title>
-            EcoBricks xD
-        </title>
         <style>
-            @import url('https://fonts.googleapis.com/css?family=Vidaloka');
+            @import url('https://fonts.googleapis.com/css?family=Montserrat');
 
             ul {
-                font-family: 'Vidaloka', serif;
+                font-family: 'Montserrat', serif;
+                font-weight: bold;
                 list-style-type: none;
                 margin: 0;
                 padding: 0;
@@ -30,12 +28,20 @@
 
             li a:hover {
                 background-color: #00e673;
+                transition: all .4s ease;
+                -webkit-transition: all .4s ease;
+            }
+
+            img.resize {
+                max-width:13%;
+                max-height:13%;
             }
         </style>
 
     </head>
     <body>
         <ul>
+            <!-- <li><img class='resize' src="/static/logo.png"></li> -->
             <li><a href="/">Home</a></li>
             <li><a href="#">About EcoBricks</a></li>
             <li><a href="#">Partners</a></li>
@@ -44,7 +50,8 @@
             <li style="float:right"><a href="/login/">Login</a></li>
             <li style="float:right"><a href="/register/">Register</a></li>
             {% else %}
-            <li style="float:right"><a href="/logout/">logout</a></li>
+            <li><a href="/rewards">Rewards</a></li>
+            <li style="float:right"><a href="/logout/">Logout</a></li>
             <li style="float:right"><a href="/profile/{{loggeduser.id}}">Welcome back, {{loggeduser.firstName}}!</a></li>
             {% endif %}
         </ul>
