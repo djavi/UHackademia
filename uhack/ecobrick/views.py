@@ -71,11 +71,14 @@ def logout_view(request):
 
 def staff_view(request):
     title = "Staff page"
+    success = ""
 
     if request.method == "POST":
-        if userId in request.POST:
-            if numEcobrick in request.POST:
-                print("hello")
+        if "userId" in request.POST:
+            if "numEcobrick" in request.POST:
+                id = request.POST.get("userId")
+                num = request.POST.get("numEcobrick")
+                
                 return render(request,'admin.html',{'title':title,'success':"Eco brick successfully added"})
 
-    return render(request,'admin.html',{'title':title})
+    return render(request,'admin.html',{'title':title,'success':success})
