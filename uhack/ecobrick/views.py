@@ -14,7 +14,7 @@ import datetime
 #LOGIN
 def login_view(request):
     title = "Login"
-    form = UserLoginForm(request.POST or None)
+    form = login(request.POST or None)
 
     if form.is_valid():
         username = form.cleaned_data.get("username")
@@ -24,7 +24,7 @@ def login_view(request):
 
         return redirect(reverse('client-panel', kwargs={'pk':request.user.pk}))
 
-    return render(request, "leverageapp/login_bs4.html",{"form":form, "title": title})
+    return render(request, "login.html",{"form":form, "title": title})
 
 #HOME
 class HomeView(generic.View):
