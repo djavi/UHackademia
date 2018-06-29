@@ -37,6 +37,7 @@ def login_view(request):
 #HOME
 class HomeView(generic.View):
     template_name = 'home.html'
+
     #display blank form
     def get(self, request):
         context = {}
