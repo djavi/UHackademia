@@ -37,10 +37,12 @@
             <li><a href="#">About EcoBricks</a></li>
             <li><a href="#">Partners</a></li>
             <li><a href="#">Contact Us</a></li>
+            {% if loggeduser == 0 %}
             <li style="float:right"><a href="/login/">Login</a></li>
             <li style="float:right"><a href="#">Register</a></li>
-
-            <li></li>
+            {% else %}
+            <li>Welcome back, {{user.firstName}}</li>
+            {% endif %}
         </ul>
         {% block content %}
         {% endblock %}
