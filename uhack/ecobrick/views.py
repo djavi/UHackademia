@@ -38,6 +38,14 @@ class HomeView(generic.View):
     #display blank form
     def get(self, request):
         return render(request, self.template_name)
+
+class RewardsView(generic.View):
+    rewards = Reward.objects.all()
+    template_name = 'rewards.html'
+    context={}
+    #display blank form
+    def get(self, request):
+        return render(request, self.template_name, {"rewards": self.rewards})
 #REGISTER
 # def register(request):
 #     if request.method == 'POST':
@@ -75,12 +83,24 @@ def logout_view(request):
     return HttpResponseRedirect('/')
 
 def staff_view(request):
+    all_users = UserDetail.objects.all()
     title = "Staff page"
+    success = ""
 
     if request.method == "POST":
-        if userId in request.POST:
-            if numEcobrick in request.POST:
-                print("hello")
+        if "userId" in request.POST:
+            if "numEcobrick" in request.POST:
+                uid = request.POST.get("userId")
+                num = request.POST.get("numEcobrick")
+                weight = request.POST.get("weightEco")
+
+                user = get_object_or_404(User,id=uid)
+                user2 = get_object_or_404(UserDetail,user=user)
+
+                user2.brickNum = user2.brickNum + int(num)
+                user2.brickWeight = user2.brickWeight + int(weight)
+                user2.save()
+                    
                 return render(request,'admin.html',{'title':title,'success':"Eco brick successfully added"})
 
-    return render(request,'admin.html',{'title':title})
+    return render(request,'admin.html',{'title':title,'success':success})
