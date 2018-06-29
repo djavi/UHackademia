@@ -3,3 +3,17 @@
 body {
     font-family: Montserrat;
 }
+.points-earned{
+    font-size: 3em;
+}
+.reward-name{
+    font-size: 2em;
+}
+
+.reward-desc{
+    font-size: 1.2em;
+}
+
+.reward{
+    background-color: #e5edf9;
+}
