@@ -30,6 +30,9 @@ class Reward(models.Model):
     pointCost = models.PositiveIntegerField(default = 0)
     description = models.CharField(max_length = 1000)
 
+    def __str__(self):
+        return str(self.rewardName)
+        
 class Partner(models.Model):
     #partner details
     region = models.CharField(max_length = 100)
