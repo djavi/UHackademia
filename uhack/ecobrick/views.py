@@ -44,7 +44,7 @@ class HomeView(generic.View):
     else:
         loggeduser = 0
 
-    context {
+    context = {
         'loggeduser': loggeduser 
     }
 
@@ -118,16 +118,14 @@ def staff_view(request):
 
     return render(request,'admin.html',{'title':title,'success':success})
 
-def user_profile(request, userid){
+def user_profile(request, userid):
     if request.user.is_authenticated():
         loggeduser = User.objects.get(request.user)
     else:
         loggeduser = 0
 
-    context {
+    context = {
         'loggeduser': loggeduser 
     }
 
     return render(request,'userprofile.html',context)
-
-}
