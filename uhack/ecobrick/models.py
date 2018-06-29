@@ -11,7 +11,8 @@ class UserDetail(models.Model):
     lastName = models.CharField(max_length = 50)
     address = models.CharField(max_length = 150)
     contactNum = models.CharField(max_length = 50)
-
+    brickNum = models.PositiveIntegerField(default = 0)
+    brickWeight = models.PositiveIntegerField(default = 0)
     #user account type
     choices = ((0, 'Staff'), (1, 'Regular User'))
     userType = models.IntegerField(default = 1, choices = choices)
@@ -30,6 +31,9 @@ class Reward(models.Model):
     pointCost = models.PositiveIntegerField(default = 0)
     description = models.CharField(max_length = 1000)
 
+    def __str__(self):
+        return str(self.rewardName)
+        
 class Partner(models.Model):
     #partner details
     region = models.CharField(max_length = 100)
