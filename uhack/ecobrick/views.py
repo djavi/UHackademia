@@ -52,10 +52,16 @@ def homepage(request):
 class RewardsView(generic.View):
     rewards = Reward.objects.all()
     template_name = 'rewards.html'
+
+    try:
+        loggeduser = UserDetail.objects.get(id=request.session['user'])
+    except(KeyError, UserDetail.DoesNotExist):
+        loggeduser = 0
+
     context={}
     #display blank form
     def get(self, request):
-        return render(request, self.template_name, {"rewards": self.rewards})
+        return render(request, self.template_name, {"rewards": self.rewards, 'loggeduser':loggeduser})
 #REGISTER
 # def register(request):
 #     if request.method == 'POST':
@@ -135,8 +141,13 @@ def user_profile(request, userid):
 
 def register_view(request):
     form = register(request.POST or None)
-    context = {"form":form}
 
+    try:
+        loggeduser = UserDetail.objects.get(id=request.session['user'])
+    except(KeyError, UserDetail.DoesNotExist):
+        loggeduser = 0
+
+    context = {"form":form, 'loggeduser':loggeduser}
 
     if form.is_valid():
         form.save()
