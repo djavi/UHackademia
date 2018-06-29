@@ -68,3 +68,14 @@ class HomeView(generic.View):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/')
+
+def staff_view(request):
+    title = "Staff page"
+
+    if request.method == "POST":
+        if userId in request.POST:
+            if numEcobrick in request.POST:
+                print("hello")
+                return render(request,'admin.html',{'title':title,'success':"Eco brick successfully added"})
+
+    return render(request,'admin.html',{'title':title})
