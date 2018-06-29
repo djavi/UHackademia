@@ -44,7 +44,7 @@
             <li style="float:right"><a href="/login/">Login</a></li>
             <li style="float:right"><a href="#">Register</a></li>
             {% else %}
-            <li>Welcome back, <a href="#">{{loggeduser.firstName}}!</a></li>
+            <li style="float:right">Welcome back, <a href="#">{{loggeduser.firstName}}!</a></li>
             {% endif %}
         </ul>
         {% block content %}
