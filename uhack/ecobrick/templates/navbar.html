@@ -45,7 +45,7 @@
             <li style="float:right"><a href="#">Register</a></li>
             {% else %}
             <li style="float:right"><a href="/logout/">logout</a></li>
-            <li style="float:right"><a href="#">Welcome back, {{loggeduser.firstName}}!</a></li>
+            <li style="float:right"><a href="/profile/{{loggeduser.id}}">Welcome back, {{loggeduser.firstName}}!</a></li>
             {% endif %}
         </ul>
         {% block content %}
