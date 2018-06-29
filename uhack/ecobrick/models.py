@@ -11,7 +11,8 @@ class UserDetail(models.Model):
     lastName = models.CharField(max_length = 50)
     address = models.CharField(max_length = 150)
     contactNum = models.CharField(max_length = 50)
-
+    brickNum = models.PositiveIntegerField(default = 0)
+    brickWeight = models.PositiveIntegerField(default = 0)
     #user account type
     choices = ((0, 'Staff'), (1, 'Regular User'))
     userType = models.IntegerField(default = 1, choices = choices)

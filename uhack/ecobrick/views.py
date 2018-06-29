@@ -78,6 +78,7 @@ def logout_view(request):
     return HttpResponseRedirect('/')
 
 def staff_view(request):
+    all_users = UserDetail.objects.all()
     title = "Staff page"
     success = ""
 
@@ -87,6 +88,9 @@ def staff_view(request):
                 id = request.POST.get("userId")
                 num = request.POST.get("numEcobrick")
                 
+                for user in all_users:
+                    if user.user.id == id:
+                        print("")
                 return render(request,'admin.html',{'title':title,'success':"Eco brick successfully added"})
 
     return render(request,'admin.html',{'title':title,'success':success})
