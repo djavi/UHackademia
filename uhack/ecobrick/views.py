@@ -9,6 +9,8 @@ from django.views import generic
 from .models import *
 from .forms import *
 from django.contrib.sessions.models import Session
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 
 import datetime
 # import timezone
@@ -16,21 +18,22 @@ import datetime
 def login_view(request):
     title = "Login"
     form = login(request.POST or None)
-    context = {}
+    context = {"form":form, "title": title}
 
-    if form.is_valid():
-        username = form.cleaned_data.get("username")
-        password = form.cleaned_data.get("password")
-        user = authenticate(username=username, password=password)
-        login(request,user)
+    if request.method == "POST":
+        if form.is_valid():
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
+            user = authenticate(username=username, password=password)
+            login(request,user)
 
-        return redirect(reverse('client-panel', kwargs={'pk':request.user.pk}))
+            if request.user.is_authenticated: 
+                return redirect("home.html")
+            else:
+                context['log_error'] = "Cannot find an account with that combination"
 
-    if User.DoesNotExist:
-        context['log_error'] = "Cannot find an account with that combination"
 
-
-    return render(request, "login.html",{"form":form, "title": title}, context)
+    return render(request, "login.html", context)
 
 #HOME
 class HomeView(generic.View):
@@ -120,10 +123,6 @@ def user_profile(request, userid){
         loggeduser = User.objects.get(request.user)
     else:
         loggeduser = 0
-
-    context {
-        'loggeduser': loggeduser 
-    }
 
     context {
         'loggeduser': loggeduser 
