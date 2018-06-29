@@ -6,7 +6,7 @@
     <head>
         <title>EcoBricks xD</title>
         <link rel="stylesheet" type="text/css" href="static/base.css">
-        <script>
+        <script type="text/javascript">
             var slideIndex = 0;
             showSlides();
 
@@ -19,7 +19,7 @@
                 slideIndex++;
                 if (slideIndex > slides.length) {slideIndex = 1} 
                 slides[slideIndex-1].style.display = "block"; 
-                setTimeout(showSlides, 2000); // Change image every 2 seconds
+                setTimeout(showSlides, 2000);
             }
         </script>
         <style>
@@ -102,7 +102,6 @@
         </style>
     </head>
     <body>
-        <div id="slideshow">
                 <div class="slideshow-container">
                         <div class="mySlides fade">
                           <img src="static/img1.jpg" style="width:100%">
@@ -130,8 +129,8 @@
                         <span class="dot" onclick="currentSlide(1)"></span> 
                         <span class="dot" onclick="currentSlide(2)"></span> 
                         <span class="dot" onclick="currentSlide(3)"></span> 
-                    </div>
-        </div>
+                      </div>
+            </div>
     </body>
 </html>
 {% endblock %}

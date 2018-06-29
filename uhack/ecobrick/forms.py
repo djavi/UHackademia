@@ -8,7 +8,7 @@ class login(forms.ModelForm):
 
     class Meta:
 
-        model = User
+        model = UserDetail
         fields = ['username','password']
 
         widgets = {
@@ -22,4 +22,4 @@ class register(forms.ModelForm):
     class Meta:
 
         model = UserDetail
-        fields = ['user','firstName','lastName','address','contactNum']
+        fields = ['username','password','firstName','lastName','address','contactNum']

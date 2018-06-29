@@ -16,32 +16,38 @@ import datetime
 # import timezone
 #LOGIN
 def login_view(request):
+    try:
+        loggeduser = UserDetail.objects.get(id=request.session['user'])
+    except(KeyError, UserDetail.DoesNotExist):
+        loggeduser = 0
+    
     title = "Login"
     form = login(request.POST or None)
-    context = {"form":form, "title": title}
+    context = {"form":form, "title": title,"loggeduser":loggeduser}
+    all_users = UserDetail.objects.all()
 
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
-        user = authenticate(request,username=username, password=password)
 
-        if user is not None:
-            login(request,user)
-            return redirect("home")
-        else:
-            context['log_error'] = "Cannot find an account with that combination"
-
+        for user in all_users:
+            if user.username == username:
+                if user.password == password:
+                    request.session['user'] = user.id
+                    return redirect("home")
+            else:
+                context['log_error'] = "Cannot find an account with that combination"
 
     return render(request, "login.html", context)
 
-#HOME
-class HomeView(generic.View):
-    template_name = 'home.html'
 
-    #display blank form
-    def get(self, request):
-        context = {}
-        return render(request, self.template_name, context)
+def homepage(request):
+    try:
+        loggeduser = UserDetail.objects.get(id=request.session['user'])
+    except(KeyError, UserDetail.DoesNotExist):
+        loggeduser = 0
+    
+    return render(request,"home.html",{'loggeduser':loggeduser})
 
 class RewardsView(generic.View):
     rewards = Reward.objects.all()
@@ -83,7 +89,14 @@ class RewardsView(generic.View):
 
 #LOGOUT
 def logout_view(request):
-    logout(request)
+    #logout(request)
+    try:
+        loggeduser = UserDetail.objects.get(id=request.session['user'])
+    except(KeyError, UserDetail.DoesNotExist):
+        loggeduser = 0
+
+    del request.session['user']
+
     return HttpResponseRedirect('/')
 
 def staff_view(request):
@@ -98,21 +111,20 @@ def staff_view(request):
                 num = request.POST.get("numEcobrick")
                 weight = request.POST.get("weightEco")
 
-                user = get_object_or_404(User,id=uid)
-                user2 = get_object_or_404(UserDetail,user=user)
+                user = get_object_or_404(UserDetail,id=uid)
 
-                user2.brickNum = user2.brickNum + int(num)
-                user2.brickWeight = user2.brickWeight + int(weight)
-                user2.save()
+                user.brickNum = user.brickNum + int(num)
+                user.brickWeight = user.brickWeight + int(weight)
+                user.save()
                     
                 return render(request,'admin.html',{'title':title,'success':"Eco brick successfully added"})
 
     return render(request,'admin.html',{'title':title,'success':success})
 
 def user_profile(request, userid):
-    if request.user.is_authenticated():
-        loggeduser = User.objects.get(request.user)
-    else:
+    try:
+        loggeduser = UserDetail.objects.get(id=request.session['user'])
+    except(KeyError, UserDetail.DoesNotExist):
         loggeduser = 0
 
     context = {
