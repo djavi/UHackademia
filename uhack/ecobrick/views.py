@@ -8,6 +8,7 @@ from django.utils import timezone
 from django.views import generic
 from .models import *
 from .forms import *
+from django.contrib.sessions.models import Session
 
 import datetime
 # import timezone
@@ -35,9 +36,18 @@ def login_view(request):
 class HomeView(generic.View):
     template_name = 'home.html'
 
+    if request.user.is_authenticated():
+        loggeduser = User.objects.get(request.user)
+    else:
+        loggeduser = 0
+
+    context {
+        'loggeduser': loggeduser 
+    }
+
     #display blank form
     def get(self, request):
-        return render(request, self.template_name)
+        return render(request, self.template_name, context)
 
 class RewardsView(generic.View):
     rewards = Reward.objects.all()
@@ -104,3 +114,21 @@ def staff_view(request):
                 return render(request,'admin.html',{'title':title,'success':"Eco brick successfully added"})
 
     return render(request,'admin.html',{'title':title,'success':success})
+
+def user_profile(request, userid){
+    if request.user.is_authenticated():
+        loggeduser = User.objects.get(request.user)
+    else:
+        loggeduser = 0
+
+    context {
+        'loggeduser': loggeduser 
+    }
+
+    context {
+        'loggeduser': loggeduser 
+    }
+
+    return render(request,'userprofile.html',context)
+
+}

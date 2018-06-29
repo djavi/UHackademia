@@ -1,6 +1,9 @@
 {% load static %}
 <html>
     <head>
+        <title>
+            EcoBricks xD
+        </title>
         <style>
             @import url('https://fonts.googleapis.com/css?family=Vidaloka');
 
@@ -41,7 +44,7 @@
             <li style="float:right"><a href="/login/">Login</a></li>
             <li style="float:right"><a href="#">Register</a></li>
             {% else %}
-            <li>Welcome back, {{user.firstName}}</li>
+            <li>Welcome back, <a href="#">{{loggeduser.firstName}}!</a></li>
             {% endif %}
         </ul>
         {% block content %}
