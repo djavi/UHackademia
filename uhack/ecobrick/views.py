@@ -48,20 +48,14 @@ def homepage(request):
         loggeduser = 0
     
     return render(request,"home.html",{'loggeduser':loggeduser})
-
-class RewardsView(generic.View):
-    rewards = Reward.objects.all()
-    template_name = 'rewards.html'
-
+        
+def rewards(request):
     try:
         loggeduser = UserDetail.objects.get(id=request.session['user'])
     except(KeyError, UserDetail.DoesNotExist):
         loggeduser = 0
-
-    context={}
-    #display blank form
-    def get(self, request):
-        return render(request, self.template_name, {"rewards": self.rewards, 'loggeduser':loggeduser})
+    rewards = Reward.objects.all()
+    return render(request, "rewards.html", {"rewards": self.rewards, 'loggeduser':loggeduser})
 #REGISTER
 # def register(request):
 #     if request.method == 'POST':
