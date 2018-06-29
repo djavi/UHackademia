@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 # Create your models here.
 class UserDetail(models.Model):
     #user details
-    user = models.ForeignKey(User,on_delete = models.CASCADE)
     email = models.EmailField(max_length = 50, unique = True, blank = False, null = True)
     firstName = models.CharField(max_length = 50)
     lastName = models.CharField(max_length = 50)
@@ -16,7 +15,8 @@ class UserDetail(models.Model):
     #user account type
     choices = ((0, 'Staff'), (1, 'Regular User'))
     userType = models.IntegerField(default = 1, choices = choices)
-
+    username = models.CharField(max_length=50)
+    password = models.CharField(max_length=50)
 
 class Brick(models.Model):
     #brick details
