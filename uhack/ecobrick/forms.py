@@ -22,4 +22,4 @@ class register(forms.ModelForm):
     class Meta:
 
         model = UserDetail
-        fields = ['username','firstName','lastName','address','contactNum']
+        fields = ['username','password','firstName','lastName','address','contactNum']
