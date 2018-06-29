@@ -85,12 +85,17 @@ def staff_view(request):
     if request.method == "POST":
         if "userId" in request.POST:
             if "numEcobrick" in request.POST:
-                id = request.POST.get("userId")
+                uid = request.POST.get("userId")
                 num = request.POST.get("numEcobrick")
-                
-                for user in all_users:
-                    if user.user.id == id:
-                        print("")
+                weight = request.POST.get("weightEco")
+
+                user = get_object_or_404(User,id=uid)
+                user2 = get_object_or_404(UserDetail,user=user)
+
+                user2.brickNum = user2.brickNum + int(num)
+                user2.brickWeight = user2.brickWeight + int(weight)
+                user2.save()
+                    
                 return render(request,'admin.html',{'title':title,'success':"Eco brick successfully added"})
 
     return render(request,'admin.html',{'title':title,'success':success})
