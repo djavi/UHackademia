@@ -11,11 +11,13 @@
 
     <body>
         <div id = "container">
-                {% csrf_token %}
-                {% for field in form %}
-                <div name = "user">{{ field }}</div>
-                {% endfor %}
-                <div class = "buttonBox"> <button type = "submit" class = "loginButton">Login</button></div>
+                <form method = "POST">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div name = "user">{{ field }}</div>
+                    {% endfor %}
+                    <div class = "buttonBox"> <button type = "submit" class = "loginButton">Login</button></div>
+                </form>
 
                 {% if log_error %}
                 <div class="col"><div class="alert alert-danger"><b>Error!</b> {{ log_error }}</div></div>
