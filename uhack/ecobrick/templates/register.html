@@ -1,0 +1,30 @@
+{% extends 'navbar.html' %}
+{% load static %}
+<!DOCTYPE html>
+
+
+{% block content %}
+<html>
+    <head>
+        <title> {{title}} </title>
+    </head>
+
+    <body>
+        <div id = "container">
+                <form method = "POST">
+                    {% csrf_token %}
+                    {% for field in form %} 
+                    <div name = "user">{{ field.label }}: {{ field }}</div>
+                    {% endfor %}
+                    <div class = "buttonBox"> <button type = "submit" class = "loginButton">Register</button></div>
+                </form>
+
+                {% if log_error %}
+                <div class="col"><div class="alert alert-danger"><b>Error!</b> {{ log_error }}</div></div>
+                {% endif %}
+
+            </div>
+        </div>
+    </body>
+</html>
+{% endblock %}

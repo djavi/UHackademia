@@ -132,3 +132,14 @@ def user_profile(request, userid):
     }
 
     return render(request,'userprofile.html',context)
+
+def register_view(request):
+    form = register(request.POST or None)
+    context = {"form":form}
+
+
+    if form.is_valid():
+        form.save()
+        return redirect('login')
+    
+    return render(request, 'register.html', context)
