@@ -58,7 +58,19 @@ def rewards(request):
     except(KeyError, UserDetail.DoesNotExist):
         loggeduser = 0
     rewards = Reward.objects.all()
-    return render(request, "rewards.html", {"rewards": rewards, 'loggeduser':loggeduser})
+    myRewards = MyReward.objects.filter(user=loggeduser)
+    if request.method == "POST":
+        for i in request.POST:
+            if i[:4] == "del-":
+                toDel = i[4:]
+                reward = Reward.objects.get(id=toDel)
+                temp = loggeduser.brickPoints - reward.pointCost
+                if temp >= 0:
+                    loggeduser.brickPoints -= reward.pointCost
+                    loggeduser.save()
+                    new_reward = MyReward(user=loggeduser, rewardName=reward.rewardName, pointCost=reward.pointCost, description=reward.description)
+                    new_reward.save()
+    return render(request, "rewards.html", {"rewards": rewards, "myRewards": myRewards,'loggeduser':loggeduser})
 
 def partners(request):
     try:
@@ -130,6 +142,7 @@ def staff_view(request):
 
                 user.brickNum = user.brickNum + int(num)
                 user.brickWeight = user.brickWeight + int(weight)
+                user.brickPoints = user.brickWeight + int(weight)
                 user.save()
 
                 return render(request,'admin.html',{'title':title,'success':"Eco brick successfully added",'loggeduser':loggeduser})
