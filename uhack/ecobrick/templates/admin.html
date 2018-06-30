@@ -71,7 +71,16 @@
             input {
                 font-family: 'Montserrat', serif;
             }
+
+            input:hover {
+                background-color:#00e673;
+            }
             </style>
+        <script>
+            function myalert(){
+                alert("Successfully added ecobrick to account!")
+            }
+        </script>
          </head>
    <body>
        <ul>
@@ -84,9 +93,9 @@
                 <img id="tao" src="{% static 'admin.png' %}"><br>
                 <h3>Admin Page</h3>
                 <div id='map'>
-                <form method="POST">
+                <form method="POST" onSubmit="myalert()">
                     {%csrf_token%}
-                    User ID: <br><input type="text" name="userId"><br>
+                    Username: <br><input type="text" name="userId"><br>
                     Number of EcoBrick: <br><input type="number" name="numEcobrick"><br>
                     Total weight of EcoBrick: <br><input type="number" name="weightEco"><br>
                     <br>
