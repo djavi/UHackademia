@@ -1,8 +1,18 @@
 {% extends 'navbar.html' %}
 {% load static %}
 {% block content %}
-            <head><title>BricklyRewards</title></head>
+            <head><title>BricklyRewards</title>
+            <style>
+            @import url('https://fonts.googleapis.com/css?family=Montserrat');
+            body {
+                font-family: Montserrat;
+                align-content: center;
+                text-align: center; 
+            }    
+            </style>
+            </head>
 
+            
     <div class = "container">
         <div class = "row points-earned">
             Points earned: {{logged_user.brickWeight}}

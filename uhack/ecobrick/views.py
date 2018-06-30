@@ -59,6 +59,8 @@ def rewards(request):
         loggeduser = 0
     rewards = Reward.objects.all()
     return render(request, "rewards.html", {"rewards": rewards, 'loggeduser':loggeduser})
+<<<<<<< HEAD
+=======
 
 def partners(request):
     try:
@@ -66,6 +68,7 @@ def partners(request):
     except(KeyError, UserDetail.DoesNotExist):
         loggeduser = 0
     return render(request, "partners.html", {'loggeduser':loggeduser})
+>>>>>>> a9bc05c0f344cb46b56f880e49c1d7fb13e79f78
 #REGISTER
 # def register(request):
 #     if request.method == 'POST':
@@ -122,11 +125,11 @@ def staff_view(request):
     if request.method == "POST":
         if "userId" in request.POST:
             if "numEcobrick" in request.POST:
-                uid = request.POST.get("userId")
+                username = request.POST.get("userId")
                 num = request.POST.get("numEcobrick")
                 weight = request.POST.get("weightEco")
 
-                user = get_object_or_404(UserDetail,id=uid)
+                user = get_object_or_404(UserDetail,username=username)
 
                 user.brickNum = user.brickNum + int(num)
                 user.brickWeight = user.brickWeight + int(weight)
