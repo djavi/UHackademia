@@ -174,3 +174,18 @@ def about(request):
         loggeduser = 0
 
     return render(request,'about.html',{'loggeduser':loggeduser})
+
+def leaderboard(request):
+    top_users =  UserDetail.objects.all().order_by('-brickWeight')[:10]
+    try:
+        loggeduser = UserDetail.objects.get(id=request.session['user'])
+    except(KeyError, UserDetail.DoesNotExist):
+        loggeduser = 0
+
+
+    context = {
+        'top_users':top_users,
+        'loggeduser':loggeduser,
+    }
+
+    return render(request, 'leaderboard.html', context)

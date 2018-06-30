@@ -1,4 +1,5 @@
 {% extends 'navbar.html' %}
+{% load staticfiles %}
 {% block content %}
     <head>
         <title>Partners</title>
@@ -26,13 +27,22 @@
             padding: 10px;
             margin: 0 auto;
         }
+
+        img {
+            max-width: 100px;
+            max-height: 100px;
+            margin: 4px;
+        }
         </style>
     </head>
     <body>
         <div id='container'>
-            <h3>Partners and Drop-off Locations</h3>
+                <img id="tao" src="{% static 'medal.png' %}"><br>
+            <h3>Top ECOBRICKERS</h3>
             <div id='map'>
-                    <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1BPz6dFpcgCxzP1v9hWDCiAwSPFMZgSbh" width="640" height="480"></iframe>
+                {% for user in top_users %}
+                {{user.username}} ------ {{user.brickWeight}} grams <br>
+                {% endfor %}
             </div>
 
         </div>
