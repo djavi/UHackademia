@@ -33,6 +33,14 @@ class HomeView(generic.View):
     #display blank form
     def get(self, request):
         return render(request, self.template_name)
+
+class RewardsView(generic.View):
+    rewards = Reward.objects.all()
+    template_name = 'rewards.html'
+    context={}
+    #display blank form
+    def get(self, request):
+        return render(request, self.template_name, {"rewards": self.rewards})
 #REGISTER
 # def register(request):
 #     if request.method == 'POST':
