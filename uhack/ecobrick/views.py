@@ -20,7 +20,7 @@ def login_view(request):
         loggeduser = UserDetail.objects.get(id=request.session['user'])
     except(KeyError, UserDetail.DoesNotExist):
         loggeduser = 0
-    
+
     title = "Login"
     form = login(request.POST or None)
     context = {"form":form, "title": title,"loggeduser":loggeduser}
@@ -46,9 +46,9 @@ def homepage(request):
         loggeduser = UserDetail.objects.get(id=request.session['user'])
     except(KeyError, UserDetail.DoesNotExist):
         loggeduser = 0
-    
+
     return render(request,"home.html",{'loggeduser':loggeduser})
-        
+
 def rewards(request):
     try:
         loggeduser = UserDetail.objects.get(id=request.session['user'])
@@ -56,6 +56,13 @@ def rewards(request):
         loggeduser = 0
     rewards = Reward.objects.all()
     return render(request, "rewards.html", {"rewards": rewards, 'loggeduser':loggeduser})
+
+def partners(request):
+    try:
+        loggeduser = UserDetail.objects.get(id=request.session['user'])
+    except(KeyError, UserDetail.DoesNotExist):
+        loggeduser = 0
+    return render(request, "partners.html", {'loggeduser':loggeduser})
 #REGISTER
 # def register(request):
 #     if request.method == 'POST':
@@ -116,7 +123,7 @@ def staff_view(request):
                 user.brickNum = user.brickNum + int(num)
                 user.brickWeight = user.brickWeight + int(weight)
                 user.save()
-                    
+
                 return render(request,'admin.html',{'title':title,'success':"Eco brick successfully added"})
 
     return render(request,'admin.html',{'title':title,'success':success})
@@ -149,5 +156,5 @@ def register_view(request):
     if form.is_valid():
         form.save()
         return redirect('login')
-    
+
     return render(request, 'register.html', context)
