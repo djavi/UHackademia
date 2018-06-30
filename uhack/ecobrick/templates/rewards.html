@@ -1,8 +1,29 @@
 {% extends 'navbar.html' %}
+{% load static %}
 {% block content %}
-    {% for reward in rewards %}
-        <div class = "reward">
-            {{reward.rewardName}}
+            <head><title>BricklyRewards</title></head>
+
+    <div class = "container">
+        <div class = "row points-earned">
+            Points earned: {{logged_user.brickWeight}}
         </div>
+    {% for reward in rewards %}
+
+            <div class = "row reward col-md-12 mt-0">
+                <div class = "col-md-9">
+                    <div class = "col reward-name">
+                        {{reward.rewardName}}
+                    </div>
+                    <div class = "col reward-desc">
+                        {{reward.description}}
+                    </div>
+                    <div class = "col reward-cost">
+                        Points needed: {{reward.pointCost}}
+                    </div>
+                </div>
+                <button type = "button" class = "btn btn-success col-md-3">Claim Reward</button>
+            </div>
+            <br><br>
     {% endfor %}
+    </div>
 {% endblock %}

@@ -4,133 +4,144 @@
 {% block content %}
 <html>
     <head>
-        <title>EcoBricks xD</title>
+        <title>brickly.ph</title>
         <link rel="stylesheet" type="text/css" href="static/base.css">
-        <script type="text/javascript">
-            var slideIndex = 0;
-            showSlides();
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <script>
+    $('#carouselFade').carousel();
+    </script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat');
 
-            function showSlides() {
-                var i;
-                var slides = document.getElementsByClassName("mySlides");
-                for (i = 0; i < slides.length; i++) {
-                    slides[i].style.display = "none"; 
-                }
-                slideIndex++;
-                if (slideIndex > slides.length) {slideIndex = 1} 
-                slides[slideIndex-1].style.display = "block"; 
-                setTimeout(showSlides, 2000);
+            body{
+        font-family: 'Montserrat', sans-serif;
+        }
+        .carousel-fade .carousel-inner .item {
+        opacity: 0;
+        transition-property: opacity;
+        }
+
+        .carousel-fade .carousel-inner .active {
+        opacity: 1;
+        }
+
+        .carousel-fade .carousel-inner .active.left,
+        .carousel-fade .carousel-inner .active.right {
+        left: 0;
+        opacity: 0;
+        z-index: 1;
+        }
+
+        .carousel-fade .carousel-inner .next.left,
+        .carousel-fade .carousel-inner .prev.right {
+        opacity: 1;
+        }
+
+        .carousel-fade .carousel-control {
+        z-index: 2;
+        } 
+        @media all and (transform-3d), (-webkit-transform-3d) {
+            .carousel-fade .carousel-inner > .item.next,
+            .carousel-fade .carousel-inner > .item.active.right {
+            opacity: 0;
+            -webkit-transform: translate3d(0, 0, 0);
+                    transform: translate3d(0, 0, 0);
             }
-        </script>
-        <style>
-            {box-sizing:border-box}
-
-            .slideshow-container {
-            max-width: 1000px;
-            position: relative;
-            margin: auto;
+            .carousel-fade .carousel-inner > .item.prev,
+            .carousel-fade .carousel-inner > .item.active.left {
+            opacity: 0;
+            -webkit-transform: translate3d(0, 0, 0);
+                    transform: translate3d(0, 0, 0);
             }
-
-            .mySlides {
-                display: none;
+            .carousel-fade .carousel-inner > .item.next.left,
+            .carousel-fade .carousel-inner > .item.prev.right,
+            .carousel-fade .carousel-inner > .item.active {
+            opacity: 1;
+            -webkit-transform: translate3d(0, 0, 0);
+                    transform: translate3d(0, 0, 0);
             }
-
-            .prev, .next {
-            cursor: pointer;
-            position: absolute;
-            top: 50%;
-            width: auto;
-            margin-top: -22px;
-            padding: 16px;
-            color: white;
+        } 
+        .carousel-caption {
+            color: whitesmoke;
+            background-color: #333;
             font-weight: bold;
-            font-size: 18px;
-            transition: 0.6s ease;
-            border-radius: 0 3px 3px 0;
+            text-shadow: 0 1px 4px rgba(0,0,0,.9);
+        font-size:17px
+        }
+        .carousel-caption h3 {
+        font-size: 30px;
+        font-family: 'Montserrat', sans-serif;
+        }
+            html,
+            body,
+            .carousel,
+            .carousel-inner,
+            .carousel-inner .item {
+            height: 100%;
+            } 
+            .item:nth-child(1) {
+            background: url('{% static 'img1.jpg' %}');
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
             }
 
-            .next {
-            right: 0;
-            border-radius: 3px 0 0 3px;
+            .item:nth-child(2) {
+            background: url('{% static 'img2.jpg' %}');
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
             }
 
-            .prev:hover, .next:hover {
-            background-color: rgba(0,0,0,0.8);
+            .item:nth-child(3) {
+            background: url('{% static 'img3.jpg' %}');
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
             }
-
-            .text {
-            color: #f2f2f2;
-            font-size: 15px;
-            padding: 8px 12px;
-            position: absolute;
-            bottom: 8px;
-            width: 100%;
-            text-align: center;
-            }
-
-            .dot {
-            cursor: pointer;
-            height: 15px;
-            width: 15px;
-            margin: 0 2px;
-            background-color: #bbb;
-            border-radius: 50%;
-            display: inline-block;
-            transition: background-color 0.6s ease;
-            }
-
-            .active, .dot:hover {
-            background-color: #717171;
-            }
-
-            .fade {
-            -webkit-animation-name: fade;
-            -webkit-animation-duration: 1.5s;
-            animation-name: fade;
-            animation-duration: 1.5s;
-            }
-
-            @-webkit-keyframes fade {
-            from {opacity: .4} 
-            to {opacity: 1}
-            }
-
-            @keyframes fade {
-            from {opacity: .4} 
-            to {opacity: 1}
-            }
-        </style>
-    </head>
-    <body>
-                <div class="slideshow-container">
-                        <div class="mySlides fade">
-                          <img src="static/img1.jpg" style="width:100%">
-                          <div class="text">EcoBricks 123</div>
+    </style>
+    </head>    
+    
+        <body>
+            <div id="carouselFade" class="carousel slide carousel-fade" data-ride="carousel">
+        
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                    <div class="item active">  
+                        <div class="carousel-caption">
+                          <h3>WELCOME TO BRICKLY.PH!</h3>
+                          <p>We are glad you are taking the initiative to help our environment.</p>
                         </div>
-                      
-                        <div class="mySlides fade">
-                          <img src="static/img2.jpg" style="width:100%">
-                          <div class="text">Caption Two</div>
+                    </div>
+                    <div class="item"> 
+                        <div class="carousel-caption">
+                          <h3>WELCOME TO BRICKLY.PH!</h3>
+                          <p>Save the environment, get rewards!</p>
                         </div>
-                      
-                        <div class="mySlides fade">
-                          <img src="static/img3.jpg" style="width:100%">
-                          <div class="text">Caption Three</div>
+                    </div>
+                    <div class="item"> 
+                        <div class="carousel-caption">
+                          <h3>WELCOME TO BRICKLY.PH!</h3>
+                          <p>Connect with your fellow mother earth loving organizations.</p>
                         </div>
-                      
-                        <!-- Next and previous buttons -->
-                        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                        <a class="next" onclick="plusSlides(1)">&#10095;</a>
-                      </div>
-                      <br>
-                      
-                      <!-- The dots/circles -->
-                      <div style="text-align:center">
-                        <span class="dot" onclick="currentSlide(1)"></span> 
-                        <span class="dot" onclick="currentSlide(2)"></span> 
-                        <span class="dot" onclick="currentSlide(3)"></span> 
-                      </div>
+                    </div>
+                </div>
+                <!-- Controls -->
+                <a class="left carousel-control" href="#carouselFade" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#carouselFade" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
+            <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+            <!-- Include all compiled plugins (below), or include individual files as needed -->
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>        
     </body>
 </html>
 {% endblock %}

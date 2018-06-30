@@ -20,7 +20,7 @@ def login_view(request):
         loggeduser = UserDetail.objects.get(id=request.session['user'])
     except(KeyError, UserDetail.DoesNotExist):
         loggeduser = 0
-    
+
     title = "Login"
     form = login(request.POST or None)
     context = {"form":form, "title": title,"loggeduser":loggeduser}
@@ -34,7 +34,10 @@ def login_view(request):
             if user.username == username:
                 if user.password == password:
                     request.session['user'] = user.id
-                    return redirect("home")
+                    if user.userType == 0:
+                        return redirect('staff')
+                    else:
+                        return redirect("home")
             else:
                 context['log_error'] = "Cannot find an account with that combination"
 
@@ -46,9 +49,9 @@ def homepage(request):
         loggeduser = UserDetail.objects.get(id=request.session['user'])
     except(KeyError, UserDetail.DoesNotExist):
         loggeduser = 0
-    
+
     return render(request,"home.html",{'loggeduser':loggeduser})
-        
+
 def rewards(request):
     try:
         loggeduser = UserDetail.objects.get(id=request.session['user'])
@@ -56,6 +59,16 @@ def rewards(request):
         loggeduser = 0
     rewards = Reward.objects.all()
     return render(request, "rewards.html", {"rewards": rewards, 'loggeduser':loggeduser})
+<<<<<<< HEAD
+=======
+
+def partners(request):
+    try:
+        loggeduser = UserDetail.objects.get(id=request.session['user'])
+    except(KeyError, UserDetail.DoesNotExist):
+        loggeduser = 0
+    return render(request, "partners.html", {'loggeduser':loggeduser})
+>>>>>>> a9bc05c0f344cb46b56f880e49c1d7fb13e79f78
 #REGISTER
 # def register(request):
 #     if request.method == 'POST':
@@ -100,6 +113,11 @@ def logout_view(request):
     return HttpResponseRedirect('/')
 
 def staff_view(request):
+    try:
+        loggeduser = UserDetail.objects.get(id=request.session['user'])
+    except(KeyError, UserDetail.DoesNotExist):
+        loggeduser = 0
+    
     all_users = UserDetail.objects.all()
     title = "Staff page"
     success = ""
@@ -116,10 +134,10 @@ def staff_view(request):
                 user.brickNum = user.brickNum + int(num)
                 user.brickWeight = user.brickWeight + int(weight)
                 user.save()
-                    
-                return render(request,'admin.html',{'title':title,'success':"Eco brick successfully added"})
 
-    return render(request,'admin.html',{'title':title,'success':success})
+                return render(request,'admin.html',{'title':title,'success':"Eco brick successfully added",'loggeduser':loggeduser})
+
+    return render(request,'admin.html',{'title':title,'success':success,'loggeduser':loggeduser})
 
 def user_profile(request, userid):
     try:
@@ -127,8 +145,11 @@ def user_profile(request, userid):
     except(KeyError, UserDetail.DoesNotExist):
         loggeduser = 0
 
+    user = UserDetail.objects.get(id=userid)
+
     context = {
-        'loggeduser': loggeduser 
+        'loggeduser': loggeduser,
+        'user':user,
     }
 
     return render(request,'userprofile.html',context)
@@ -146,5 +167,28 @@ def register_view(request):
     if form.is_valid():
         form.save()
         return redirect('login')
-    
+
     return render(request, 'register.html', context)
+
+def about(request):
+    try:
+        loggeduser = UserDetail.objects.get(id=request.session['user'])
+    except(KeyError, UserDetail.DoesNotExist):
+        loggeduser = 0
+
+    return render(request,'about.html',{'loggeduser':loggeduser})
+
+def leaderboard(request):
+    top_users =  UserDetail.objects.all().order_by('-brickWeight')[:10]
+    try:
+        loggeduser = UserDetail.objects.get(id=request.session['user'])
+    except(KeyError, UserDetail.DoesNotExist):
+        loggeduser = 0
+
+
+    context = {
+        'top_users':top_users,
+        'loggeduser':loggeduser,
+    }
+
+    return render(request, 'leaderboard.html', context)
