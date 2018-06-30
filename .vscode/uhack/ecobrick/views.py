@@ -72,6 +72,7 @@ def rewards(request):
                     new_reward.save()
     return render(request, "rewards.html", {"rewards": rewards, "myRewards": myRewards,'loggeduser':loggeduser})
 
+
 def partners(request):
     try:
         loggeduser = UserDetail.objects.get(id=request.session['user'])
