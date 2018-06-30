@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% block content %}
     <head>
-        <title>Partners</title>
+        <title>Leaderboard</title>
         <style>
         @import url('https://fonts.googleapis.com/css?family=Montserrat');
 
@@ -36,12 +36,13 @@
         </style>
     </head>
     <body>
+        <br><br>
         <div id='container'>
                 <img id="tao" src="{% static 'medal.png' %}"><br>
-            <h3>Top ECOBRICKERS</h3>
+            <h3>TOP 10 ECOBRICKERS</h3>
             <div id='map'>
                 {% for user in top_users %}
-                {{user.username}} ------ {{user.brickWeight}} grams <br>
+                {{user.username}} --------------- {{user.brickWeight}} grams <br>
                 {% endfor %}
             </div>
 
