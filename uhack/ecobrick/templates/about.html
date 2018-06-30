@@ -1,4 +1,5 @@
 {%extends 'navbar.html'%}
+{% load staticfiles %}
 {%block content%}
 <head>
     <title>About Ecobrick</title>
@@ -32,6 +33,12 @@
                 padding: 9px;
                 text-align: center;
                 width: 50%;
+            }
+
+            img {
+            max-width: 650px;
+            max-height: 650px;
+            margin: 4px;
             }
                                         
             /* Clear floats after the columns */
@@ -122,8 +129,16 @@
                     *Pack your plastics in your bottles tightly using a stick!<br>
                     *Use plastics only, don't include metal, glass and biodegradeables.<br>
                     *Weigh your ecobrick before depositing to be sure!<br>
-
+                    <br>
                     <h3>So what do they do with these eco-bricks?</h3>  
+                    *Build a house!<br>
+                    <img src="{% static 'abt1.jpg' %}"><br>
+                    <h3>So what do they do with these eco-bricks?</h3>  
+                    *Build a chair/bench!!!<br>
+                    <img src="{% static 'abt2.jpg' %}"><br>
+                    <h3>So what do they do with these eco-bricks?</h3>  
+                    *Maybe even build a boat!!!<br>
+                    <img src="{% static 'abt3.jpg' %}"><br>
 
 
             </center>
