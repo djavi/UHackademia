@@ -55,7 +55,7 @@ def rewards(request):
     except(KeyError, UserDetail.DoesNotExist):
         loggeduser = 0
     rewards = Reward.objects.all()
-    return render(request, "rewards.html", {"rewards": self.rewards, 'loggeduser':loggeduser})
+    return render(request, "rewards.html", {"rewards": rewards, 'loggeduser':loggeduser})
 #REGISTER
 # def register(request):
 #     if request.method == 'POST':
