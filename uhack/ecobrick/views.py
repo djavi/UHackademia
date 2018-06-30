@@ -59,6 +59,8 @@ def rewards(request):
         loggeduser = 0
     rewards = Reward.objects.all()
     return render(request, "rewards.html", {"rewards": rewards, 'loggeduser':loggeduser})
+<<<<<<< HEAD
+=======
 
 def partners(request):
     try:
@@ -66,6 +68,7 @@ def partners(request):
     except(KeyError, UserDetail.DoesNotExist):
         loggeduser = 0
     return render(request, "partners.html", {'loggeduser':loggeduser})
+>>>>>>> a9bc05c0f344cb46b56f880e49c1d7fb13e79f78
 #REGISTER
 # def register(request):
 #     if request.method == 'POST':
