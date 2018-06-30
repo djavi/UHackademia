@@ -14,7 +14,7 @@ import datetime
 #LOGIN
 def login_view(request):
     title = "Login"
-    form = UserLoginForm(request.POST or None)
+    form = login(request.POST or None)
 
     if form.is_valid():
         username = form.cleaned_data.get("username")
@@ -24,7 +24,7 @@ def login_view(request):
 
         return redirect(reverse('client-panel', kwargs={'pk':request.user.pk}))
 
-    return render(request, "leverageapp/login_bs4.html",{"form":form, "title": title})
+    return render(request, "login.html",{"form":form, "title": title})
 
 #HOME
 class HomeView(generic.View):
@@ -76,3 +76,14 @@ class RewardsView(generic.View):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/')
+
+def staff_view(request):
+    title = "Staff page"
+
+    if request.method == "POST":
+        if userId in request.POST:
+            if numEcobrick in request.POST:
+                print("hello")
+                return render(request,'admin.html',{'title':title,'success':"Eco brick successfully added"})
+
+    return render(request,'admin.html',{'title':title})
