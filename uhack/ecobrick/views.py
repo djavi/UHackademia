@@ -122,11 +122,11 @@ def staff_view(request):
     if request.method == "POST":
         if "userId" in request.POST:
             if "numEcobrick" in request.POST:
-                uid = request.POST.get("userId")
+                username = request.POST.get("userId")
                 num = request.POST.get("numEcobrick")
                 weight = request.POST.get("weightEco")
 
-                user = get_object_or_404(UserDetail,id=uid)
+                user = get_object_or_404(UserDetail,username=username)
 
                 user.brickNum = user.brickNum + int(num)
                 user.brickWeight = user.brickWeight + int(weight)
